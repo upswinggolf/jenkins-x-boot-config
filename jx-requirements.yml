@@ -1,23 +1,29 @@
 cluster:
   clusterName: ""
-  environmentGitOwner: ""
-  project: ""
+  environmentGitOwner: upswinggolf
+  environmentGitPrivate: true
+  gitKind: github
+  gitName: github
+  gitServer: https://github.com
+  namespace: jx
+  project: upswing-248312
   provider: gke
   zone: ""
-gitops: true
 environments:
 - key: dev
 - key: staging
 - key: production
+gitops: true
 ingress:
   domain: ""
-  externalDNS: false
+  externalDNS: true
+  namespaceSubDomain: -jx.
   tls:
-    email: ""
-    enabled: false
-    production: false
+    email: langleyd@tcd.ie
+    enabled: true
+    production: true
 kaniko: true
-secretStorage: local
+secretStorage: vault
 storage:
   logs:
     enabled: false
@@ -29,6 +35,6 @@ storage:
     enabled: false
     url: ""
 versionStream:
-  ref: "master"
+  ref: master
   url: https://github.com/jenkins-x/jenkins-x-versions.git
 webhook: prow
