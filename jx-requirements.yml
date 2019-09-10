@@ -6,7 +6,7 @@ cluster:
   gitName: github
   gitServer: https://github.com
   namespace: jx
-  project: upswing-248312
+  project: ""
   provider: gke
   zone: ""
 environments:
