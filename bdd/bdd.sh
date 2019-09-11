@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 set -x
 
 if [ $# -ne 2 ]; then
@@ -15,7 +15,6 @@ export GH_OWNER="cb-kubecd"
 
 export GH_CREDS_PSW="$(jx step credential -s jenkins-x-bot-test-github)"
 export JENKINS_CREDS_PSW="$(jx step credential -s  test-jenkins-user)"
-export GKE_SA="$(jx step credential -k bdd-credentials.json -s bdd-secret -f sa.json)"
 
 # fix broken `BUILD_NUMBER` env var
 export BUILD_NUMBER="$BUILD_ID"
@@ -55,7 +54,7 @@ cp $SRC_PATH/parameters.yaml $DST_PATH/env
 cd $DST_PATH
 
 # Rotate the domain to avoid cert-manager API rate limit
-if [[ -n "${DOMAIN_ROTATION}" ]]; then
+if [[ "${DOMAIN_ROTATION}" == "true" ]]; then
     SHARD=$(date +"%l" | xargs)
     DOMAIN="${DOMAIN_PREFIX}${SHARD}${DOMAIN_SUFFIX}"
     if [[ -z "${DOMAIN}" ]]; then
